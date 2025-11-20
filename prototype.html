@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Web App Prototype</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Dark background for OBS */
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Prevent scrollbars in OBS */
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #root {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Launcher Styles */
+        .launcher-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .app-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .app-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .app-desc {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* Digital Clock Styles */
+        .clock-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .time-display {
+            font-size: 8rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            color: #00ffff; /* Cyan for visibility */
+        }
+
+        .date-display {
+            font-size: 2rem;
+            color: #ccc;
+            margin-top: -20px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- Components ---
+
+        const DigitalClock = ({ onBack }) => {
+            const [time, setTime] = useState(new Date());
+
+            useEffect(() => {
+                const timer = setInterval(() => setTime(new Date()), 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            const formatTime = (date) => {
+                return date.toLocaleTimeString('ja-JP', { hour12: false });
+            };
+
+            const formatDate = (date) => {
+                return date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' });
+            };
+
+            return (
+                <div className="clock-container">
+                    <button className="back-button" onClick={onBack}>← Back</button>
+                    <div className="time-display">{formatTime(time)}</div>
+                    <div className="date-display">{formatDate(time)}</div>
+                </div>
+            );
+        };
+
+        const Launcher = ({ onLaunch }) => {
+            const apps = [
+                { id: 'clock', name: 'Digital Clock', icon: '⏰', desc: 'Simple digital clock' },
+                { id: 'analog', name: 'Analog Clock', icon: '🕰️', desc: 'Classic analog face (WIP)' },
+                { id: 'timer', name: 'Timer', icon: '⏱️', desc: 'Countdown timer (WIP)' },
+            ];
+
+            return (
+                <div className="launcher-container">
+                    {apps.map(app => (
+                        <div key={app.id} className="app-card" onClick={() => onLaunch(app.id)}>
+                            <span className="app-icon">{app.icon}</span>
+                            <div className="app-name">{app.name}</div>
+                            <div className="app-desc">{app.desc}</div>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [currentApp, setCurrentApp] = useState(null);
+
+            const handleLaunch = (appId) => {
+                if (appId === 'clock') {
+                    setCurrentApp('clock');
+                } else {
+                    alert(`App "${appId}" is not implemented in this prototype yet.`);
+                }
+            };
+
+            const handleBack = () => {
+                setCurrentApp(null);
+            };
+
+            return (
+                <>
+                    {currentApp === 'clock' ? (
+                        <DigitalClock onBack={handleBack} />
+                    ) : (
+                        <Launcher onLaunch={handleLaunch} />
+                    )}
+                </>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
