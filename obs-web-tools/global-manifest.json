@@ -3,12 +3,14 @@
     "id": "analog-clock",
     "name": "Analog Clock",
     "description": "A classic analog clock face.",
+    "icon": "🕰️",
     "path": "./apps/analog-clock/index.html"
   },
   {
     "id": "digital-clock",
     "name": "Digital Clock",
     "description": "A simple digital clock with neon style.",
+    "icon": "⏰",
     "path": "./apps/digital-clock/index.html"
   }
 ]

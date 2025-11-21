@@ -1,8 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: transparent; /* Allow OBS background to show through if needed, or set a dark bg */
-    background: #000;
+    background-color: transparent;
+    /* Allow OBS background to show through if needed, or set a dark bg */
+    background: transparent;
     color: #0ff;
     font-family: 'Courier New', Courier, monospace;
     display: flex;

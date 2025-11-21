@@ -111,9 +111,7 @@
                 card.href = app.path;
 
                 // Icon mapping based on ID (simple fallback)
-                let icon = '📦';
-                if (app.id.includes('clock')) icon = '⏰';
-                if (app.id.includes('analog')) icon = '🕰️';
+                const icon = app.icon || '📦';
 
                 card.innerHTML = `
                     <span class="app-icon">${icon}</span>

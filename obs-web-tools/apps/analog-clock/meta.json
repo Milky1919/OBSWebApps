@@ -1,5 +1,6 @@
 {
     "id": "analog-clock",
     "name": "Analog Clock",
-    "description": "A classic analog clock face."
+    "description": "A classic analog clock face.",
+    "icon": "🕰️"
 }
