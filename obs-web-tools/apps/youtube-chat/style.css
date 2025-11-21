@@ -1,0 +1,481 @@
+/* Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#chat-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* Default: Bottom-up */
+    padding: 20px;
+    box-sizing: border-box;
+    pointer-events: none;
+    /* Allow clicks to pass through */
+}
+
+.comment-box {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 16px;
+    max-width: 100%;
+    word-wrap: break-word;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.comment-content {
+    flex-grow: 1;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.comment-text {
+    line-height: 1.4;
+}
+
+/* Super Chat Highlight */
+.super-chat {
+    background: rgba(255, 0, 0, 0.6) !important;
+    border: 2px solid #ff0000;
+}
+
+.member-chat {
+    background: rgba(0, 255, 0, 0.2) !important;
+    border: 1px solid #00ff00;
+}
+
+/* =========================================
+   Themes
+   ========================================= */
+
+/* Neon Blue */
+.theme-neon-blue .comment-box {
+    background: rgba(0, 0, 20, 0.8);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 10px #00ffff, inset 0 0 5px #00ffff;
+    color: #e0ffff;
+    border-radius: 4px;
+}
+
+.theme-neon-blue .comment-author {
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+/* Minimal White */
+.theme-minimal-white .comment-box {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #333;
+}
+
+.theme-minimal-white .comment-author {
+    color: #000;
+}
+
+/* Retro Console */
+.theme-retro-console .comment-box {
+    background: #000;
+    color: #0f0;
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid #0f0;
+    border-radius: 0;
+}
+
+.theme-retro-console .comment-author {
+    color: #0f0;
+    text-transform: uppercase;
+}
+
+/* Dark Mode */
+.theme-dark-mode .comment-box {
+    background: #222;
+    color: #ddd;
+    border-radius: 8px;
+    border: 1px solid #444;
+}
+
+.theme-dark-mode .comment-author {
+    color: #aaa;
+}
+
+/* Glassmorphism */
+.theme-glassmorphism .comment-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.theme-glassmorphism .comment-author {
+    color: #fff;
+    font-weight: 800;
+}
+
+/* Cyberpunk */
+.theme-cyberpunk .comment-box {
+    background: rgba(0, 0, 0, 0.8);
+    border-left: 5px solid #f0f;
+    border-right: 5px solid #0ff;
+    color: #fff;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
+}
+
+.theme-cyberpunk .comment-author {
+    color: #f0f;
+    text-shadow: 2px 2px #0ff;
+}
+
+/* Pastel Pop */
+.theme-pastel-pop .comment-box {
+    background: #fff0f5;
+    color: #555;
+    border: 2px dashed #ffb6c1;
+    border-radius: 15px;
+}
+
+.theme-pastel-pop .comment-author {
+    color: #ff69b4;
+}
+
+/* High Contrast */
+.theme-high-contrast .comment-box {
+    background: #000;
+    color: #fff;
+    border: 4px solid #fff;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+.theme-high-contrast .comment-author {
+    color: #ff0;
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   Animations (In)
+   ========================================= */
+
+/* Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.anim-fade-in {
+    animation-name: fadeIn;
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.anim-slide-in-left {
+    animation-name: slideInLeft;
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.anim-slide-in-right {
+    animation-name: slideInRight;
+}
+
+/* Slide In Up */
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.anim-slide-in-up {
+    animation-name: slideInUp;
+}
+
+/* Slide In Down */
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.anim-slide-in-down {
+    animation-name: slideInDown;
+}
+
+/* Pop Up */
+@keyframes popUp {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.anim-pop-up {
+    animation-name: popUp;
+}
+
+/* Typewriter (Simulated with clip-path) */
+@keyframes typewriter {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+.anim-typewriter {
+    animation-name: typewriter;
+}
+
+/* Flash */
+@keyframes flash {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+        background: #fff;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.anim-flash {
+    animation-name: flash;
+}
+
+
+/* =========================================
+   Animations (Out)
+   ========================================= */
+
+/* Fade Out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.anim-fade-out {
+    animation-name: fadeOut;
+}
+
+/* Slide Out Left */
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.anim-slide-out-left {
+    animation-name: slideOutLeft;
+}
+
+/* Slide Out Right */
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.anim-slide-out-right {
+    animation-name: slideOutRight;
+}
+
+/* Slide Out Up */
+@keyframes slideOutUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.anim-slide-out-up {
+    animation-name: slideOutUp;
+}
+
+/* Slide Out Down */
+@keyframes slideOutDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.anim-slide-out-down {
+    animation-name: slideOutDown;
+}
+
+/* Shrink Out */
+@keyframes shrinkOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.anim-shrink-out {
+    animation-name: shrinkOut;
+}
+
+/* Blur Out */
+@keyframes blurOut {
+    from {
+        filter: blur(0);
+        opacity: 1;
+    }
+
+    to {
+        filter: blur(10px);
+        opacity: 0;
+    }
+}
+
+.anim-blur-out {
+    animation-name: blurOut;
+}
+
+/* Hinge */
+@keyframes hinge {
+    0% {
+        transform: rotate(0);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+    }
+
+    20%,
+    60% {
+        transform: rotate(80deg);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+    }
+
+    40%,
+    80% {
+        transform: rotate(60deg);
+        transform-origin: top left;
+        animation-timing-function: ease-in-out;
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate3d(0, 700px, 0);
+        opacity: 0;
+    }
+}
+
+.anim-hinge {
+    animation-name: hinge;
+}

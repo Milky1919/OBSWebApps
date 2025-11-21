@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Chat Config</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            height: 100vh;
+            box-sizing: border-box;
+            gap: 20px;
+        }
+
+        .config-panel {
+            flex: 1;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-y: auto;
+            max-width: 400px;
+        }
+
+        .preview-panel {
+            flex: 2;
+            background: #000;
+            /* OBS canvas simulation */
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #444;
+        }
+
+        .preview-header {
+            padding: 10px;
+            background: #333;
+            border-bottom: 1px solid #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            background-image: linear-gradient(45deg, #111 25%, transparent 25%), linear-gradient(-45deg, #111 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #111 75%), linear-gradient(-45deg, transparent 75%, #111 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: none;
+            padding: 0;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #aaa;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .btn {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #005fa3;
+        }
+
+        .btn-copy {
+            background: #28a745;
+        }
+
+        .btn-copy:hover {
+            background: #218838;
+        }
+
+        #url-display {
+            margin-top: 10px;
+            padding: 10px;
+            background: #111;
+            border: 1px solid #444;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 0.8em;
+            color: #0f0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="config-panel">
+        <h2>Configuration</h2>
+        <form id="config-form">
+            <h3>Connection</h3>
+            <div class="form-group">
+                <label>Live ID (Video ID)</label>
+                <input type="text" name="id" placeholder="e.g. jNQXAC9IVRw">
+            </div>
+
+            <h3>Display</h3>
+            <div class="form-group">
+                <label>Max Lines</label>
+                <input type="number" name="maxlines" value="10" min="1" max="50">
+            </div>
+            <div class="form-group">
+                <label>Flow Direction</label>
+                <select name="flow">
+                    <option value="bottom-up">Bottom Up (Newest at Bottom)</option>
+                    <option value="top-down">Top Down (Newest at Top)</option>
+                </select>
+            </div>
+            <div class="checkbox-group form-group">
+                <input type="checkbox" name="showname" checked>
+                <label>Show User Name</label>
+            </div>
+            <div class="checkbox-group form-group">
+                <input type="checkbox" name="showavatar" checked>
+                <label>Show Avatar</label>
+            </div>
+
+            <h3>Design</h3>
+            <div class="form-group">
+                <label>Theme</label>
+                <select name="theme" id="theme-select">
+                    <!-- Populated by JS -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Font Family</label>
+                <input type="text" name="font" value="Segoe UI">
+            </div>
+            <div class="form-group">
+                <label>Font Size</label>
+                <input type="text" name="fontsize" value="16px">
+            </div>
+            <div class="form-group">
+                <label>Name Font Size</label>
+                <input type="text" name="namefontsize" value="0.9em">
+            </div>
+            <div class="form-group">
+                <label>Max Width</label>
+                <input type="text" name="maxwidth" value="100%">
+            </div>
+            <div class="form-group">
+                <label>Padding</label>
+                <input type="text" name="padding" value="10px">
+            </div>
+            <div class="form-group">
+                <label>Text Color</label>
+                <input type="color" name="textcolor" value="#ffffff">
+            </div>
+
+            <h3>Animation</h3>
+            <div class="form-group">
+                <label>In Animation</label>
+                <select name="inanim" id="inanim-select">
+                    <!-- Populated by JS -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Out Animation</label>
+                <select name="outanim" id="outanim-select">
+                    <!-- Populated by JS -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Animation Speed</label>
+                <input type="text" name="animspeed" value="0.5s">
+            </div>
+            <div class="form-group">
+                <label>Easing</label>
+                <select name="easing">
+                    <option value="linear">Linear</option>
+                    <option value="ease-in">Ease In</option>
+                    <option value="ease-out" selected>Ease Out</option>
+                    <option value="ease-in-out">Ease In Out</option>
+                </select>
+            </div>
+
+            <h3>Filters</h3>
+            <div class="form-group">
+                <label>Exclude Keywords (comma separated)</label>
+                <input type="text" name="exclude" placeholder="bot, spam">
+            </div>
+            <div class="checkbox-group form-group">
+                <input type="checkbox" name="sc-highlight" checked>
+                <label>Highlight Super Chat</label>
+            </div>
+            <div class="form-group">
+                <label>Membership Display</label>
+                <select name="showmember">
+                    <option value="all">Show All</option>
+                    <option value="off">Hide Membership Badge</option>
+                    <option value="member-only">Member Only</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="preview-panel">
+        <div class="preview-header">
+            <span>Preview (Dummy Data)</span>
+            <button class="btn btn-copy" id="copy-btn" style="width: auto; margin: 0;">Copy URL for OBS</button>
+        </div>
+        <iframe id="preview-frame" src="viewer.html?mode=preview"></iframe>
+        <div id="url-display"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('config-form');
+        const iframe = document.getElementById('preview-frame');
+        const urlDisplay = document.getElementById('url-display');
+        const copyBtn = document.getElementById('copy-btn');
+        const themeSelect = document.getElementById('theme-select');
+        const inAnimSelect = document.getElementById('inanim-select');
+        const outAnimSelect = document.getElementById('outanim-select');
+
+        // Load styles.json
+        fetch('styles.json')
+            .then(res => res.json())
+            .then(data => {
+                // Populate Themes
+                Object.entries(data.themes).forEach(([key, val]) => {
+                    const opt = document.createElement('option');
+                    opt.value = key;
+                    opt.textContent = val.label;
+                    themeSelect.appendChild(opt);
+                });
+
+                // Populate Animations
+                Object.entries(data.animations.in).forEach(([key, val]) => {
+                    const opt = document.createElement('option');
+                    opt.value = key;
+                    opt.textContent = val.label;
+                    inAnimSelect.appendChild(opt);
+                });
+                Object.entries(data.animations.out).forEach(([key, val]) => {
+                    const opt = document.createElement('option');
+                    opt.value = key;
+                    opt.textContent = val.label;
+                    outAnimSelect.appendChild(opt);
+                });
+
+                // Trigger initial update
+                updatePreview();
+            });
+
+        function generateUrl(mode = 'normal') {
+            const formData = new FormData(form);
+            const params = new URLSearchParams();
+
+            for (const [key, value] of formData.entries()) {
+                params.append(key, value);
+            }
+
+            // Handle unchecked checkboxes (they don't appear in FormData)
+            if (!form.showname.checked) params.append('showname', 'off');
+            if (!form.showavatar.checked) params.append('showavatar', 'off');
+            if (!form['sc-highlight'].checked) params.append('sc-highlight', 'off');
+
+            if (mode === 'preview') {
+                params.append('mode', 'preview');
+            }
+
+            // Construct absolute URL for OBS
+            const baseUrl = window.location.href.replace('config.html', 'viewer.html');
+            return `${baseUrl}?${params.toString()}`;
+        }
+
+        function updatePreview() {
+            const url = generateUrl('preview');
+            iframe.src = url;
+
+            const obsUrl = generateUrl('normal');
+            urlDisplay.textContent = obsUrl;
+        }
+
+        // Debounce update
+        let timeout;
+        form.addEventListener('input', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(updatePreview, 500);
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const url = urlDisplay.textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => copyBtn.textContent = originalText, 2000);
+            });
+        });
+    </script>
+</body>
+
+</html>

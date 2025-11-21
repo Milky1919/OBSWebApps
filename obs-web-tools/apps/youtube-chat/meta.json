@@ -1,0 +1,7 @@
+{
+    "id": "youtube-chat",
+    "name": "YouTube Comment Viewer",
+    "description": "Customizable comment overlay with themes and animations.",
+    "icon": "💬",
+    "path": "./apps/youtube-chat/config.html"
+}

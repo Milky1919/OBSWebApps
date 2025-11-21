@@ -1,0 +1,106 @@
+{
+    "themes": {
+        "neon-blue": {
+            "label": "Neon Blue",
+            "className": "theme-neon-blue"
+        },
+        "minimal-white": {
+            "label": "Minimal White",
+            "className": "theme-minimal-white"
+        },
+        "retro-console": {
+            "label": "Retro Console",
+            "className": "theme-retro-console"
+        },
+        "dark-mode": {
+            "label": "Dark Mode",
+            "className": "theme-dark-mode"
+        },
+        "glassmorphism": {
+            "label": "Glassmorphism",
+            "className": "theme-glassmorphism"
+        },
+        "cyberpunk": {
+            "label": "Cyberpunk",
+            "className": "theme-cyberpunk"
+        },
+        "pastel-pop": {
+            "label": "Pastel Pop",
+            "className": "theme-pastel-pop"
+        },
+        "high-contrast": {
+            "label": "High Contrast",
+            "className": "theme-high-contrast"
+        }
+    },
+    "animations": {
+        "in": {
+            "fade-in": {
+                "label": "Fade In",
+                "className": "anim-fade-in"
+            },
+            "slide-left": {
+                "label": "Slide In Left",
+                "className": "anim-slide-in-left"
+            },
+            "slide-right": {
+                "label": "Slide In Right",
+                "className": "anim-slide-in-right"
+            },
+            "slide-up": {
+                "label": "Slide In Up",
+                "className": "anim-slide-in-up"
+            },
+            "slide-down": {
+                "label": "Slide In Down",
+                "className": "anim-slide-in-down"
+            },
+            "pop-up": {
+                "label": "Pop Up",
+                "className": "anim-pop-up"
+            },
+            "typewriter": {
+                "label": "Typewriter",
+                "className": "anim-typewriter"
+            },
+            "flash": {
+                "label": "Flash",
+                "className": "anim-flash"
+            }
+        },
+        "out": {
+            "fade-out": {
+                "label": "Fade Out",
+                "className": "anim-fade-out"
+            },
+            "slide-left": {
+                "label": "Slide Out Left",
+                "className": "anim-slide-out-left"
+            },
+            "slide-right": {
+                "label": "Slide Out Right",
+                "className": "anim-slide-out-right"
+            },
+            "slide-up": {
+                "label": "Slide Out Up",
+                "className": "anim-slide-out-up"
+            },
+            "slide-down": {
+                "label": "Slide Out Down",
+                "className": "anim-slide-out-down"
+            },
+            "shrink-out": {
+                "label": "Shrink Out",
+                "className": "anim-shrink-out"
+            },
+            "blur-out": {
+                "label": "Blur Out",
+                "className": "anim-blur-out"
+            },
+            "hinge": {
+                "label": "Hinge",
+                "className": "anim-hinge"
+            }
+        }
+    }
+}

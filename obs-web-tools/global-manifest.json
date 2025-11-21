@@ -12,5 +12,12 @@
     "description": "A simple digital clock with neon style.",
     "icon": "⏰",
     "path": "./apps/digital-clock/index.html"
+  },
+  {
+    "id": "youtube-chat",
+    "name": "YouTube Comment Viewer",
+    "description": "Customizable comment overlay with themes and animations.",
+    "icon": "💬",
+    "path": "./apps/youtube-chat/config.html"
   }
 ]
