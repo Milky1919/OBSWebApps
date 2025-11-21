@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: transparent; /* Allow OBS background to show through if needed, or set a dark bg */
+    background: #000;
+    color: #0ff;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.clock-container {
+    text-align: center;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+}
+
+.time {
+    font-size: 15vw;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.date {
+    font-size: 4vw;
+    color: #aaa;
+    margin-top: 10px;
+}

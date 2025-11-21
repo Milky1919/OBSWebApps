@@ -1,0 +1,9 @@
+services:
+  app:
+    image: node:lts-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    command: sh -c "npm install && npx http-server -p 8080"

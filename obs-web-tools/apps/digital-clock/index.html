@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="clock-container">
+        <div id="time" class="time">00:00:00</div>
+        <div id="date" class="date">Loading...</div>
+    </div>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('time');
+            const dateElement = document.getElementById('date');
+
+            timeElement.textContent = now.toLocaleTimeString('ja-JP', { hour12: false });
+            dateElement.textContent = now.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' });
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+
+</html>

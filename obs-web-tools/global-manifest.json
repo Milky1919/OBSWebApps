@@ -1,0 +1,14 @@
+[
+  {
+    "id": "analog-clock",
+    "name": "Analog Clock",
+    "description": "A classic analog clock face.",
+    "path": "./apps/analog-clock/index.html"
+  },
+  {
+    "id": "digital-clock",
+    "name": "Digital Clock",
+    "description": "A simple digital clock with neon style.",
+    "path": "./apps/digital-clock/index.html"
+  }
+]

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Web Tools Launcher</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .launcher-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .app-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .app-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .app-desc {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="launcher" class="launcher-container">
+        <!-- Apps will be injected here -->
+        <div class="error-message">Loading apps...</div>
+    </div>
+
+    <script>
+        const launcher = document.getElementById('launcher');
+
+        async function loadApps() {
+            try {
+                const response = await fetch('global-manifest.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const apps = await response.json();
+                renderApps(apps);
+            } catch (error) {
+                console.error('Failed to load manifest:', error);
+                launcher.innerHTML = `<div class="error-message">Failed to load apps.<br>${error.message}</div>`;
+            }
+        }
+
+        function renderApps(apps) {
+            launcher.innerHTML = ''; // Clear loading message
+
+            if (apps.length === 0) {
+                launcher.innerHTML = '<div class="error-message">No apps found.</div>';
+                return;
+            }
+
+            apps.forEach(app => {
+                const card = document.createElement('a');
+                card.className = 'app-card';
+                card.href = app.path;
+
+                // Icon mapping based on ID (simple fallback)
+                let icon = '📦';
+                if (app.id.includes('clock')) icon = '⏰';
+                if (app.id.includes('analog')) icon = '🕰️';
+
+                card.innerHTML = `
+                    <span class="app-icon">${icon}</span>
+                    <div class="app-name">${app.name}</div>
+                    <div class="app-desc">${app.description || ''}</div>
+                `;
+
+                launcher.appendChild(card);
+            });
+        }
+
+        loadApps();
+    </script>
+</body>
+
+</html>
