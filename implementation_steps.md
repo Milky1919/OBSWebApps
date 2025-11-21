@@ -13,14 +13,14 @@ Windows 11 上で VS Code と Docker を使用した開発環境を構築しま�
 
 ### 2.1 事前準備 (Prerequisites)
 ユーザー様側で行っていただく作業です。
-*   [ ] **Docker Desktop for Windows のインストール**: WSL 2 バックエンドを使用するように設定。
-*   [ ] **VS Code のインストール**。
-*   [ ] **VS Code 拡張機能**: "Dev Containers" (ms-vscode-remote.remote-containers) をインストール。
+*   [x] **Docker Desktop for Windows のインストール**: WSL 2 バックエンドを使用するように設定。
+*   [x] **VS Code のインストール**。
+*   [x] **VS Code 拡張機能**: "Dev Containers" (ms-vscode-remote.remote-containers) をインストール。
 
 ### 2.2 プロジェクト構成の作成
-*   [ ] **ルートディレクトリ作成**: `obs-web-tools` フォルダを作成。
-*   [ ] **`package.json` 作成**: プロジェクトの依存関係定義。
-*   [ ] **`.gitignore` 作成**: `node_modules`, `.DS_Store` 等を除外。
+*   [x] **ルートディレクトリ作成**: `obs-web-tools` フォルダを作成。
+*   [x] **`package.json` 作成**: プロジェクトの依存関係定義。
+*   [x] **`.gitignore` 作成**: `node_modules`, `.DS_Store` 等を除外。
 
 ### 2.3 Docker化 (Dockerization)
 *   [ ] **`docker-compose.yml` の作成**:
